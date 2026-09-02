@@ -12,7 +12,7 @@ class CustomViewBody extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: const Column(
         children: [
-          SizedBox(height: 40,),
+          SizedBox(height: 35,),
           CustomAppBar(),
           Expanded(child: NotesListView()),
         ],
