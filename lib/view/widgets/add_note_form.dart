@@ -6,59 +6,63 @@ import 'package:notesapp/view/widgets/custom_button.dart';
 import 'package:notesapp/view/widgets/custom_text_field.dart';
 
 class addNoteForm extends StatefulWidget {
-  const addNoteForm({
-    super.key,
-  });
+  const addNoteForm({super.key});
 
   @override
   State<addNoteForm> createState() => _addNoteFormState();
 }
 
 class _addNoteFormState extends State<addNoteForm> {
-
-
-
-
   final GlobalKey<FormState> formKey = GlobalKey();
   AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
-  String ? title, subtitle; 
+  String? title, subtitle;
   @override
   Widget build(BuildContext context) {
     return Form(
       key: formKey,
       autovalidateMode: autovalidateMode,
-      
+
       child: Column(
         children: [
-          const SizedBox(height: 45,), 
-          CustomTextFormField(hint: "Title",
-          onSaved: (value){
-            title= value;
-          },),
-          const SizedBox(height: 16,),
-          CustomTextFormField(hint: "Content", maxLines: 5,
-          onSaved: (value){
-            subtitle = value;
-          },),
-          const SizedBox(height: 32,),
-          CustomButton(
-            onTap: () {
-              if(formKey.currentState!.validate()){
-                formKey.currentState!.save();
-                var notemodel = NoteModel(title: title !, subtitle: subtitle !, date: DateTime.now().toString(),
-                 color: Color(0xFFAFDCEB).toARGB32());
-                BlocProvider.of<AddNoteCubit>(context).addNote(notemodel);
-              }
-              else{
-                autovalidateMode = AutovalidateMode.always;
-              }
-              setState(() {
-                
-              });
+          const SizedBox(height: 45),
+          CustomTextFormField(
+            hint: "Title",
+            onSaved: (value) {
+              title = value;
             },
           ),
-          SizedBox(height: 16,),
-      
+          const SizedBox(height: 16),
+          CustomTextFormField(
+            hint: "Content",
+            maxLines: 5,
+            onSaved: (value) {
+              subtitle = value;
+            },
+          ),
+          const SizedBox(height: 32),
+          BlocBuilder<AddNoteCubit, AddNoteState>(
+            builder: (context, state) {
+              return CustomButton(
+                isLoading: state is AddNoteLoading? true : false,
+                onTap: () {
+                  if (formKey.currentState!.validate()) {
+                    formKey.currentState!.save();
+                    var notemodel = NoteModel(
+                      title: title!,
+                      subtitle: subtitle!,
+                      date: DateTime.now().toString(),
+                      color: Color(0xFFAFDCEB).toARGB32(),
+                    );
+                    BlocProvider.of<AddNoteCubit>(context).addNote(notemodel);
+                  } else {
+                    autovalidateMode = AutovalidateMode.always;
+                  }
+                  setState(() {});
+                },
+              );
+            },
+          ),
+          SizedBox(height: 16),
         ],
       ),
     );
