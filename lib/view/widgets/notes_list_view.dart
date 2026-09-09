@@ -19,19 +19,18 @@ class NotesListView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<NotesCubit, NotesState>(
       builder: (context, state) {
-        List<NoteModel> notes = BlocProvider.of<NotesCubit>(context).notes ?? [];
-        
-        
+        List<NoteModel> allnotes = BlocProvider.of<NotesCubit>(context).notes ?? [];
+
         return Padding(
           padding: EdgeInsetsGeometry.symmetric(vertical: 8),
           child: ListView.builder(
-            itemCount: notes.length,
+            itemCount: allnotes.length,
             padding: EdgeInsetsGeometry.zero,
             itemBuilder: (context, index) {
               Color assignedColor = colorList[index % colorList.length];
               return Padding(
                 padding: EdgeInsets.symmetric(vertical: 4),
-                child: NoteItem(noteColor: assignedColor),
+                child: NoteItem(note:allnotes[index] ,noteColor: assignedColor),
               );
             },
           ),
