@@ -14,7 +14,8 @@ class CustomViewBody extends StatefulWidget {
 
 class _CustomViewBodyState extends State<CustomViewBody> {
 
-   void initState() {
+  @override
+  void initState() {
    BlocProvider.of<NotesCubit>(context).fetchAll();
     super.initState();
   }
