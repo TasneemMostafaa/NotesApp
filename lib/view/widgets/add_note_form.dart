@@ -10,6 +10,7 @@ import 'package:notesapp/view/widgets/custom_text_field.dart';
 
 class addNoteForm extends StatefulWidget {
   const addNoteForm({super.key});
+  
 
   @override
   State<addNoteForm> createState() => _addNoteFormState();
@@ -19,6 +20,7 @@ class _addNoteFormState extends State<addNoteForm> {
   final GlobalKey<FormState> formKey = GlobalKey();
   AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
   String? title, subtitle;
+  int ?color ;
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -59,9 +61,10 @@ class _addNoteFormState extends State<addNoteForm> {
                       title: title!,
                       subtitle: subtitle!,
                       date: fomattedDate,
-                      color: Color(0xFFAFDCEB).toARGB32(),
+                      color: BlocProvider.of<AddNoteCubit>(context).color.toARGB32(),
                     );
                     BlocProvider.of<AddNoteCubit>(context).addNote(notemodel);
+                    
                   } else {
                     autovalidateMode = AutovalidateMode.always;
                   }
