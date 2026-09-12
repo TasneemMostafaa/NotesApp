@@ -33,12 +33,12 @@ class _EditNoteBodyViewState extends State<EditNoteBodyView> {
             Navigator.pop(context);
            },),
            const SizedBox(height: 50,),
-           CustomTextFormField(text: widget.note.title,
+           CustomTextFormField(hint: widget.note.title,
             onChanged: (value){
               title = value;
            },),
            const SizedBox(height: 16,),
-           CustomTextFormField(text: widget.note.subtitle,maxLines: 5,onChanged:(value){
+           CustomTextFormField(hint:widget.note.subtitle,maxLines: 5,onChanged:(value){
             subtitle = value;
            } ,),
         ],
