@@ -5,6 +5,7 @@ import 'package:notesapp/models/note_model.dart';
 import 'package:notesapp/view/widgets/custom_app_bar.dart';
 import 'package:notesapp/view/widgets/custom_text_field.dart';
 import 'package:notesapp/view/widgets/custom_view_body.dart';
+import 'package:notesapp/view/widgets/edit_note_colors_list.dart';
 
 class EditNoteBodyView extends StatefulWidget {
   const EditNoteBodyView({super.key, required this.note});
@@ -29,6 +30,7 @@ class _EditNoteBodyViewState extends State<EditNoteBodyView> {
            onPressed: () {
             widget.note.title = title ?? widget.note.title;
             widget.note.subtitle = subtitle ?? widget.note.subtitle;
+            widget.note.save();
             BlocProvider.of<NotesCubit>(context).fetchAll();
             Navigator.pop(context);
            },),
@@ -41,6 +43,8 @@ class _EditNoteBodyViewState extends State<EditNoteBodyView> {
            CustomTextFormField(hint:widget.note.subtitle,maxLines: 5,onChanged:(value){
             subtitle = value;
            } ,),
+
+           EditNoteColorsList(note: widget.note),
         ],
        ),
     );
