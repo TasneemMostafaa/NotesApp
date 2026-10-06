@@ -32,7 +32,13 @@ class _CustomViewBodyState extends State<CustomViewBody> {
           isSearching ?SearchAppBar(onClosed: (){
             setState(() {
             isSearching = false;
-          });}) : 
+          });
+          BlocProvider.of<NotesCubit>(context).fetchAll();
+          },
+          onChanged: (value) {
+            BlocProvider.of<NotesCubit>(context).search(value!);
+          },
+          ) : 
           CustomAppBar(title: "Notes", icon: const Icon(Icons.search), onPressed: (){
             setState(() {
               isSearching=true;
