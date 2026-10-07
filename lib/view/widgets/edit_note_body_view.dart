@@ -17,8 +17,18 @@ class EditNoteBodyView extends StatefulWidget {
 
 class _EditNoteBodyViewState extends State<EditNoteBodyView> {
   String ? title, subtitle;
+  late TextEditingController titleContrller;
+  late TextEditingController subtitleController;
 
-  
+  @override
+  void initState() {
+    // To exist note title and subtitle as editable text in the fields
+    super.initState();
+    titleContrller = TextEditingController(text: widget.note.title);
+    subtitleController = TextEditingController(text: widget.note.subtitle);
+
+  }
+
   @override
   Widget build(BuildContext context) {
     return  Padding(
@@ -28,25 +38,41 @@ class _EditNoteBodyViewState extends State<EditNoteBodyView> {
           const SizedBox(height: 35,),
            CustomAppBar(title: "Edit Notes", icon: Icon(Icons.check),
            onPressed: () {
-            widget.note.title = title ?? widget.note.title;
-            widget.note.subtitle = subtitle ?? widget.note.subtitle;
+            //The left operand can't be null, so the right operand is never executed
+            widget.note.title = titleContrller.text ;
+            widget.note.subtitle = subtitleController.text;
             widget.note.save();
             BlocProvider.of<NotesCubit>(context).fetchAll();
             Navigator.pop(context);
            },),
            const SizedBox(height: 50,),
-           CustomTextFormField(hint: widget.note.title,
-            onChanged: (value){
-              title = value;
-           },),
+           CustomTextFormField(
+            controller: titleContrller,
+            //hint: widget.note.title,
+            //onChanged: (value){
+          //title = value; },
+           ),
            const SizedBox(height: 16,),
-           CustomTextFormField(hint:widget.note.subtitle,maxLines: 5,onChanged:(value){
-            subtitle = value;
-           } ,),
-
+           CustomTextFormField(
+            maxLines: 5,
+            controller: subtitleController,
+            //hint:widget.note.subtitle,maxLines: 5,onChanged:(value){
+           //subtitle = value;
+          // } 
+           ),
+           const SizedBox(height:16),
            EditNoteColorsList(note: widget.note),
         ],
        ),
     );
+  }
+  @override
+  void dispose() {
+    
+    // TODO: implement dispose
+    
+    titleContrller.dispose();
+    subtitleController.dispose();
+    super.dispose();
   }
 }
