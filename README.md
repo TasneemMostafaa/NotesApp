@@ -1,6 +1,26 @@
 # notesapp
 
-A new Flutter project.
+A flutter note-taking app that allows user to create, store, edit, delete and search notes locally.
+
+## Features
+
+- Create notes
+- Store notes locally
+- Display saved notes
+- Search notes by title
+- Select note colors
+- Edit notes
+- Delete notes
+
+## Technologies
+
+- Flutter
+- Dart
+- Bloc / Cubit
+- Hive
+
+## Screenshots
+
 
 ## Getting Started
 
