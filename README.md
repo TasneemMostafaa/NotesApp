@@ -1,4 +1,4 @@
-<img width="720" height="1600" alt="Search view" src="https://github.com/user-attachments/assets/f33d9cb0-801b-4dc6-b06d-dde0dae40dbd" /># notesapp
+# NotesApp
 
 A flutter note-taking app that allows user to create, store, edit, delete and search notes locally.
 
